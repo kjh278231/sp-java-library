@@ -34,8 +34,8 @@ OR-Library Set Partitioning 55개 인스턴스에서 OR-Tools(CP-SAT, SCIP)를 �
 
 Windows 11, PowerShell 기본(Git Bash 사용 가능). 빌드: `.\gradlew.bat test | slowTest | bench | jar` (M0 이후). 벤치 기준선: Python 3.11+, `bench/scripts/requirements.txt`.
 
-JDK와 Gradle은 **SDKMAN**(`~/.sdkman`, Git Bash에서 설치)으로 관리한다. Temurin JDK 21(`21.0.12-tem`), Gradle 9.x.
-- Bash: `~/.bashrc`가 SDKMAN을 초기화한다. `java`가 안 보이면 `source ~/.sdkman/bin/sdkman-init.sh`.
-- PowerShell: 사용자 프로필(`$PROFILE.CurrentUserAllHosts`)과 사용자 환경변수(`JAVA_HOME`, `Path`)에 설정되어 있다. 그래도 안 보이면 `$env:JAVA_HOME = "$env:USERPROFILE\.sdkman\candidates\java\current"; $env:Path = "$env:JAVA_HOME\bin;$env:Path"` 를 명령 앞에 붙인다.
-- `gradlew.bat`은 `JAVA_HOME`을 쓴다. 절대 경로가 필요하면 `C:\Users\SDS\.sdkman\candidates\java\current\bin\java.exe`.
-- JDK 버전 변경은 `sdk install java <id>` / `sdk default java <id>`. 시스템 설치(winget)는 쓰지 않는다.
+JDK와 Gradle은 **SDKMAN**(`~/.sdkman`, Git Bash에서 설치)으로 관리한다. Temurin JDK 21(`21.0.12-tem`), Gradle 9.x. `.claude/settings.local.json`의 `env`가 `JAVA_HOME`, `GRADLE_HOME`(Windows 경로)을 모든 도구 셸에 주입한다.
+- Bash 도구: `java`, `javac`, `jar`, `gradle`이 `~/bin` 래퍼를 통해 바로 동작한다. `JAVA_HOME`은 POSIX 경로(`/c/Users/SDS/.sdkman/...`)로 보인다.
+- PowerShell 도구: `java`는 PATH에 없다. `& "$env:JAVA_HOME\bin\java.exe"`, `& "$env:GRADLE_HOME\bin\gradle.bat"` 처럼 호출한다. `.\gradlew.bat`은 `JAVA_HOME`을 쓰므로 그대로 동작한다.
+- 사용자 터미널(새 창)에서는 Git Bash·PowerShell 모두 `java`/`gradle`이 PATH에 있다(사용자 환경변수와 PowerShell 프로필에 설정됨).
+- JDK 버전 변경은 Git Bash에서 `sdk install java <id>` / `sdk default java <id>`. 시스템 설치(winget)는 쓰지 않는다.

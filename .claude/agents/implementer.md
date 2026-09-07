@@ -29,10 +29,8 @@ color: green
 ## 빌드와 테스트
 
 - 이 환경은 Windows 11이다. PowerShell 도구에서는 `.\gradlew.bat <task>`, Bash 도구에서는 `./gradlew <task>`를 쓴다.
-- Gradle wrapper가 아직 없고 `gradle`도 없으면(첫 작업), 다음 중 하나로 부트스트랩하고 `notes`에 기록한다.
-  1. `winget install --id Gradle.Gradle -e` 후 `gradle wrapper --gradle-version <최신 8.x>`.
-  2. Gradle 배포 zip을 `$env:TEMP`에 내려받아 풀고 그 `bin/gradle.bat wrapper --gradle-version <8.x>`를 실행.
-  wrapper(`gradlew`, `gradlew.bat`, `gradle/wrapper/*`)는 커밋 대상이다.
+- JDK 21과 Gradle은 **SDKMAN**으로 이미 설치되어 있다(CLAUDE.md 환경 절). Bash 도구에서는 `java`, `javac`, `gradle`이 바로 동작하고, PowerShell 도구에서는 `& "$env:JAVA_HOME\bin\java.exe"`, `& "$env:GRADLE_HOME\bin\gradle.bat"` 로 호출한다. **winget·수동 zip 등 다른 방법으로 JDK/Gradle을 설치하지 않는다.**
+- Gradle wrapper가 아직 없으면(첫 작업) Bash 도구에서 `gradle wrapper --gradle-version $(gradle --version | sed -n 's/^Gradle //p')` 로 생성한다. wrapper(`gradlew`, `gradlew.bat`, `gradle/wrapper/*`)는 커밋 대상이다.
 - 작업을 끝낼 때 **빌드가 깨진 상태로 두지 않는다.** `gradlew.bat test`(또는 스펙이 정한 실행 방법)를 실제로 실행하고 출력을 `testResults`에 요약한다. 실패했으면 실패 원문을 넣는다.
 - Python 스크립트 작업은 시스템 python에 `pip install -r bench/scripts/requirements.txt` 후 소형 인스턴스 1개로 실행해 본다. 설치가 안 되면(예: 휠 없음) `blockers`에 정확한 오류를 쓴다.
 - 장시간 실행(`kind: run`, 예: 55개 × 5회 기준선)은 하지 않는다. 실행 명령만 스크립트/문서로 남긴다.

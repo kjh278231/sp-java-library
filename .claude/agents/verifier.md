@@ -51,8 +51,8 @@ color: red
 
 | 항목 | 확인 | 기준 |
 |---|---|---|
-| JDK | `java -version` | 21 이상. 없으면 `fail`. 힌트: `winget install --id Microsoft.OpenJDK.21 -e` |
-| Gradle | `.\gradlew.bat --version` 또는 `gradle --version` | 둘 다 없으면 `warn`(첫 작업에서 wrapper 부트스트랩). 힌트: `winget install --id Gradle.Gradle -e` |
+| JDK | Bash: `java -version`, PowerShell: `& "$env:JAVA_HOME\bin\java.exe" -version` | 21 이상. 둘 다 실패하면 `fail`. 힌트: Git Bash에서 `sdk install java 21.0.12-tem` (SDKMAN, CLAUDE.md 환경 절) |
+| Gradle | `./gradlew --version`(있으면) 또는 Bash `gradle --version` | 둘 다 없으면 `warn`(첫 작업에서 wrapper 부트스트랩). 힌트: Git Bash에서 `sdk install gradle` |
 | Python | `python --version`, `python -c "import ortools"` | 3.11 이상. ortools 없으면 `warn`(기준선 스크립트 작업에서 설치) |
 | git | `git status --short` | 미커밋 변경은 `warn`으로 목록 보고 |
 | 데이터 | `data/instances/` 의 `spp*.txt` 개수 | 55개 기대. 없으면 `warn`(데이터 준비 작업 필요) |
